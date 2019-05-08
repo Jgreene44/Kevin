@@ -9,6 +9,5 @@
 
 
 typedef struct Player {
-    char *name;
-    int score;
+    char name[50];
 } Player;

@@ -5,6 +5,7 @@
 #include "game.h"
 #include "player.h"
 struct Game g;
+struct Welcome w;
 /* Build board used for created random mines */
 void makeFrontBoard()
 {
@@ -130,7 +131,7 @@ void printBackBoard()
         printf("\n");
     }
 
-    if(g.lost == 1){
+    if(g.lost == Lose){
         printf("\nYou've hit a mine! You lose!\n");
         getchar();
     }
@@ -330,8 +331,8 @@ int playGame()
         printf("There were %d previous winners\n", j);
 
         printf("Please enter your name to be added to the winners list: ");
-        scanf("%s", g.username);
-        fprintf(pWrite, g.username);
+        scanf("%s", P->name);
+        fprintf(pWrite, P->name);
         fprintf(pWrite, "\n");
         playAgain();
     }
@@ -479,9 +480,14 @@ void playAgain()
 // Displays the welcome message, and the GNU License
 void header()
 {
-    puts("-----------------------Welcome to Minesweeper!---------------------------");
-    puts("------------------By: Scott Mason & Jordan Greene------------------------");
-    puts("-------------------------------------------------------------------------");
+
+    w.firstLine = ("-----------------------Welcome to Minesweeper!---------------------------");
+    w.secondLine = ("------------------By: Scott Mason & Jordan Greene------------------------");
+    w.thirdLine = ("-------------------------------------------------------------------------");
+
+    printf("%s\n", w.firstLine);
+    printf("%s\n", w.secondLine);
+    printf("%s\n", w.thirdLine);
     puts("\n");
 
     printf("Press enter key to continue...");
@@ -501,7 +507,7 @@ void start() {
     do {
         playGame();
         printFrontBoard();
-    } while (g.lost != 1);    // While the user hasn't lost, loop.
+    } while (g.lost != InProgress);    // While the user hasn't lost, loop.
 
     // Once user is lost, print the board with all the mines.
     printBackBoard();
